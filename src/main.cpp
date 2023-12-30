@@ -17,25 +17,36 @@ using std::cout,
 
 // General variables...
 
-string argument_fn;
-string flag;
+string function_str;
+string flag_str;
 
 // Functions prototype declaration.
-
 void help(); // Help function for CLI.
 
-
-// Usage
-// <program> <function> <language>
+// Correct usage
+// <program> <function> <argument>
 int main(int argc, char *argv[])
 {
     setlocale(LC_ALL, "");
     try
     {
-        // Testing first, commands without arguments;
 
+        // Testing first, commands without arguments;
         if (argc == 2)
         {
+            function_str = argv[1];
+            if (function_str == OPTION_NODE)
+            {
+            }
+            else if (function_str == OPTION_NODE)
+            {
+            }
+            else if (function_str == OPTION_C)
+            {
+            }
+            else if (function_str == OPTION_CPLUS_1 || function_str == OPTION_CPLUS_2)
+            {
+            }
         }
     }
     catch (string &msg)
