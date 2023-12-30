@@ -14,22 +14,28 @@ using std::cout,
     std::setlocale,
     std::cerr,
     std::endl;
+
+// General variables...
+
 string argument_fn;
 string flag;
 
-// <program> <function> <language>
+// Functions prototype declaration.
 
-void setupVariables();
 void help(); // Help function for CLI.
 
+
+// Usage
+// <program> <function> <language>
 int main(int argc, char *argv[])
 {
     setlocale(LC_ALL, "");
     try
     {
-        if (argc != 3)
+        // Testing first, commands without arguments;
+
+        if (argc == 2)
         {
-            throw "You set an invalid type of parameters."
         }
     }
     catch (string &msg)
