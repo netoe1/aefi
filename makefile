@@ -18,6 +18,8 @@ utils.o: ${UTILS_CPP} ${UTILS_HPP}
 
 main.o: ${MAIN_CPP} ${UTILS_O}
 	${COMPILER} -o ${MAIN_O} ${MAIN_CPP} ${UTILS_O}
-	 
+
+all:
+	make utils.o main.o
 clean:
 	rm -rf ./obj/*.o
