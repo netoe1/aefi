@@ -2,9 +2,12 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
-#include <sys/stat.h>
 #include <iostream>
 #include <cctype>
+#include <filesystem>
+#include <vector>
+
+namespace fs = std::filesystem;
 
 std::string toLowerCase(const std::string &str)
 {
@@ -21,22 +24,73 @@ std::string toUpperCase(const std::string &str)
     return result;
 }
 
-// void createProject(const int &language)
-// {
-//     char op = '0';
-//     while (tolower(op) != 'y' || tolower(op) != 'n')
-//     {
-//         std::cout << "Do you want to create a project [y/n]:";
-//         std::cin >> op;
-//         switch (op)
-//         {
-//         case 'y':
-//             break;
-//         case 'n':
-//             break;
-//         default:
-//             std::cout << "Please, provide a valid i/o option." << std::endl;
-//             break;
-//         }
-//     }
-// }
+void ExecFunctions::createProject(const int &type_lang)
+{
+    try
+    {
+        // Creating variables.
+        std::string dirname;
+        std::vector<std::string> folders;
+        std::vector<std::string> files;
+
+        while (true)
+        {
+            std::cout << "Enter the name of the project." << std::endl;
+            std::cin >> dirname;
+
+            if (fs::exists(dirname))
+            {
+                std::cout << "To exit, press Ctrl-C and run program again." << std::endl;
+                std::cout << "A project with the same name exists, enter a project that has not yet been created." << std::endl;
+                continue;
+            }
+
+            break;
+        }
+
+        fs::create_directory(dirname);
+        fs::current_path(dirname);
+
+        switch (type_lang)
+        {
+        case CPP:
+            folders.push_back("include");
+            folders.push_back("obj");
+            folders.push_back("src");
+            folders.push_back("obj");
+
+            for (int i = 0; i < folders.size(); i++)
+            {
+                if (!fs::exists(folders[i]))
+                {
+                    std::cout << "Creating folders..." << folders[i] << std::endl;
+                    fs::create_directory(folders[i]);
+                }
+            }
+
+            for (int i = 0; i < files.size(); i++)
+            {
+                if (!fs::exists(files[i]))
+                {
+                    std::ofstream file(files[i]);
+                    file.close();
+                }
+            }
+
+            break;
+        case NODEJS:
+            break;
+        case NODETS:
+            break;
+        case C:
+            break;
+        default:
+            break;
+        }
+    }
+    catch (std::string &err)
+    {
+        std::cerr << std::endl
+                  << PNAME_PREFIX_ERR << err;
+    }
+}

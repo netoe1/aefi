@@ -26,6 +26,14 @@
 #define SUCCESS 0
 #define ERROR -1
 
+// Static classes
+
+class ExecFunctions
+{
+public:
+    static void createProject(const int &type_lang);
+};
+
 std::string toLowerCase(const std::string &str);
 
 // Função para converter uma string para maiúsculas
