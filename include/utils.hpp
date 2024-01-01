@@ -39,12 +39,12 @@ typedef enum cli_lang
     NODETS
 } CLI_LANGUAGES;
 
-typedef enum CLI_FUNCTIONS
+typedef enum cli_functions
 {
     HELP,
     CREATE,
     ABOUT
-};
+} CLI_FUNCTIONS;
 
 typedef struct choice
 {

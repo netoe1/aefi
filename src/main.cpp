@@ -6,11 +6,11 @@
 #include <locale>
 #include <cstring>
 #include <exception>
+
 // External tools
 #include "../include/utils.hpp"
 
-using 
-    std::cout,
+using std::cout,
     std::string,
     std::setlocale,
     std::cerr,
@@ -23,10 +23,10 @@ string flag_str;
 LangChoice userChoice; // Function about create.
 
 // Functions prototype declaration.
-void help(); // Help function for CLI.
+void help();  // Help function for CLI.
 void about(); // About function for CLI.
 bool ensureCreateProject(std::string &flag);
-void cliSetEnum_lang(std::string &lang);
+void cliSetEnum_lang(std::string &lang, LangChoice &choice);
 
 // void cliSetEnum_function(std::string &lang, LangChoice &choice_struct);
 // Correct usage
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
                 about();
             }
 
-            return SUCCESS;
+            throw std::string("Invalid syntax, check valid commands (--help)!");
         }
 
         if (argc == 3)
@@ -85,13 +85,20 @@ int main(int argc, char *argv[])
                 switch (userChoice.choiceId)
                 {
                 case CPP:
-
+                    cout << endl
+                         << "You choose cpp!" << endl;
                     break;
                 case C:
+                    cout << endl
+                         << "You choose cpp!" << endl;
                     break;
                 case NODEJS:
+                    cout << endl
+                         << "You choose nodejs!" << endl;
                     break;
                 case NODETS:
+                    cout << endl
+                         << "You choose tsnode!" << endl;
                     break;
                 default:
                     break;
@@ -129,7 +136,7 @@ void cliSetEnum_lang(std::string &lang, LangChoice &choice)
     {
         if (lang.empty())
         {
-            throw std::string("You didn't pass a valid language to create enum data.");
+            throw std::string("You didn't pass an valid parameter in cliSetEnum_lang() function.");
         }
 
         lang = toLowerCase(lang);
@@ -162,10 +169,10 @@ void cliSetEnum_lang(std::string &lang, LangChoice &choice)
 
     catch (std::string &msg)
     {
+        cout << endl;
         cerr << PNAME_PREFIX_INTERNAL << msg;
     }
 }
 void about()
 {
-    
 }
