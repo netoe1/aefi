@@ -9,7 +9,8 @@
 // External tools
 #include "../include/utils.hpp"
 
-using std::cout,
+using 
+    std::cout,
     std::string,
     std::setlocale,
     std::cerr,
@@ -19,11 +20,11 @@ using std::cout,
 
 string function_str;
 string flag_str;
-
 LangChoice userChoice; // Function about create.
 
 // Functions prototype declaration.
 void help(); // Help function for CLI.
+void about(); // About function for CLI.
 bool ensureCreateProject(std::string &flag);
 void cliSetEnum_lang(std::string &lang);
 
@@ -54,6 +55,16 @@ int main(int argc, char *argv[])
             {
                 help();
             }
+
+            if (function_str == "--about" ||
+                function_str == "--abt" ||
+                function_str == "about" ||
+                function_str == "/abt" ||
+                function_str == "/about")
+            {
+                about();
+            }
+
             return SUCCESS;
         }
 
@@ -74,6 +85,7 @@ int main(int argc, char *argv[])
                 switch (userChoice.choiceId)
                 {
                 case CPP:
+
                     break;
                 case C:
                     break;
@@ -81,7 +93,6 @@ int main(int argc, char *argv[])
                     break;
                 case NODETS:
                     break;
-
                 default:
                     break;
                 }
@@ -111,8 +122,8 @@ void help()
     cout << "Nodejs\t--\tGenerate a template of Nodejs projects. (type nodejs in arg)" << endl;
     cout << "Nodets\t--\tGenerate a template of Nodets projects. (type nodets in arg)" << endl;
 }
-
 void cliSetEnum_lang(std::string &lang, LangChoice &choice)
+
 {
     try
     {
@@ -153,4 +164,8 @@ void cliSetEnum_lang(std::string &lang, LangChoice &choice)
     {
         cerr << PNAME_PREFIX_INTERNAL << msg;
     }
+}
+void about()
+{
+    
 }
