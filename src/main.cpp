@@ -20,11 +20,17 @@ using std::cout,
 string function_str;
 string flag_str;
 
+LangChoice userChoice; // Function about create.
+
 // Functions prototype declaration.
 void help(); // Help function for CLI.
 bool ensureCreateProject(std::string &flag);
+void cliSetEnum_lang(std::string &lang);
+
+// void cliSetEnum_function(std::string &lang, LangChoice &choice_struct);
 // Correct usage
 // <program> <function> <argument>
+
 int main(int argc, char *argv[])
 {
     setlocale(LC_ALL, "");
@@ -62,17 +68,23 @@ int main(int argc, char *argv[])
 
             if (function_str == "create")
             {
+                flag_str = argv[2];
+                cliSetEnum_lang(flag_str, userChoice);
 
-                if (flag_str == OPTION_NODE)
+                switch (userChoice.choiceId)
                 {
-                }
-                else if (flag_str == OPTION_C)
-                {
-                }
-                else if (flag_str == OPTION_CPLUS_1 || flag_str == OPTION_CPLUS_2)
-                {
-                }
+                case CPP:
+                    break;
+                case C:
+                    break;
+                case NODEJS:
+                    break;
+                case NODETS:
+                    break;
 
+                default:
+                    break;
+                }
                 throw std::string("Probably you set an invalid language supported for generate an skeleton.");
             }
         }
@@ -100,13 +112,45 @@ void help()
     cout << "Nodets\t--\tGenerate a template of Nodets projects. (type nodets in arg)" << endl;
 }
 
-bool mayCreateProject(bool choice, std::string &language)
+void cliSetEnum_lang(std::string &lang, LangChoice &choice)
 {
     try
     {
+        if (lang.empty())
+        {
+            throw std::string("You didn't pass a valid language to create enum data.");
+        }
+
+        lang = toLowerCase(lang);
+
+        if (lang == OPTION_C)
+        {
+            choice.choiceId = C;
+            choice.language_as_str = std::string(OPTION_C);
+        }
+        else if (lang == OPTION_NODE)
+        {
+            choice.choiceId = NODEJS;
+            choice.language_as_str = std::string(OPTION_NODE);
+        }
+        else if (lang == OPTION_TSNODE)
+        {
+            choice.choiceId = NODETS;
+            choice.language_as_str = std::string(OPTION_C);
+        }
+        else if (lang == OPTION_CPLUS_1 || lang == OPTION_CPLUS_2)
+        {
+            choice.choiceId = CPP;
+            choice.language_as_str = std::string(OPTION_C);
+        }
+        else
+        {
+            throw std::string("You provide an language that's not supported by cli.");
+        }
     }
-    catch (std::string &err)
+
+    catch (std::string &msg)
     {
-        cerr << PNAME_PREFIX_ERR << err << endl;
+        cerr << PNAME_PREFIX_INTERNAL << msg;
     }
 }

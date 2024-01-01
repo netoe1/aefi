@@ -6,6 +6,7 @@
 //  Defining prefixes:
 #define PNAME_PREFIX_ERR "[aefi-err]:"
 #define PNAME_PREFIX_FINE "[aefi-fine]:"
+#define PNAME_PREFIX_INTERNAL "[aefi-internal-err]:"
 
 //  Defining labels as a CLI function
 
@@ -29,4 +30,26 @@ std::string toLowerCase(const std::string &str);
 
 // Função para converter uma string para maiúsculas
 std::string toUpperCase(const std::string &str);
+
+typedef enum cli_lang
+{
+    C,
+    CPP,
+    NODEJS,
+    NODETS
+} CLI_LANGUAGES;
+
+typedef enum CLI_FUNCTIONS
+{
+    HELP,
+    CREATE,
+    ABOUT
+};
+
+typedef struct choice
+{
+    int choiceId;
+    std::string language_as_str;
+} LangChoice;
+
 #endif
