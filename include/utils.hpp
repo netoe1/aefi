@@ -27,6 +27,7 @@
 #define ERROR -1
 #define TERM_FINE 0
 #define TERM_ERR 1
+#define UNDEFINED -1
 
 //  Macros
 
@@ -37,23 +38,12 @@
 #endif
 // Static classes
 
-class ExecFunctions
-{
-public:
-    static void createProject(LangChoice &LangChoice);
-};
-
-std::string toLowerCase(const std::string &str);
-
-// Função para converter uma string para maiúsculas
-std::string toUpperCase(const std::string &str);
-
 typedef enum cli_lang
 {
     C,
     CPP,
     NODEJS,
-    NODETS
+    NODETS,
 } CLI_LANGUAGES;
 
 typedef enum cli_functions
@@ -68,5 +58,16 @@ typedef struct choice
     int choiceId;
     std::string language_as_str;
 } LangChoice;
+
+class ExecFunctions
+{
+public:
+    static void createProject(LangChoice &LangChoice);
+};
+
+std::string toLowerCase(const std::string &str);
+
+// Função para converter uma string para maiúsculas
+std::string toUpperCase(const std::string &str);
 
 #endif

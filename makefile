@@ -6,9 +6,9 @@ COMPILER = g++
 #	libraries defining
 
 #	scripts.hpp
-SCRIPTS.HPP = ./include/scripts.hpp
-SCRIPTS.CPP = ./include/scripts.cpp
-SCRIPTS.O = ./obj/scripts.o
+SCRIPTS_HPP = ./include/scripts.hpp
+SCRIPTS_CPP = ./src/scripts.cpp
+SCRIPTS_O = ./obj/scripts.o
 
 #	utils.hpp
 UTILS_HPP = ./include/utils.hpp

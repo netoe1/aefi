@@ -29,7 +29,6 @@ void ExecFunctions::createProject(LangChoice &langChoice)
 {
     try
     {
-
         if (&langChoice == NULL)
         {
             throw std::string("The langChoice parameter variable was not passed correctly.");
@@ -45,8 +44,7 @@ void ExecFunctions::createProject(LangChoice &langChoice)
 
         while (true)
         {
-            clearTerm();
-            std::cout << "Enter the name of the project." << std::endl;
+            std::cout << "[aefi-generator]:Enter the name of the project:";
             std::cin >> dirname;
 
             if (fs::exists(dirname))
@@ -65,7 +63,7 @@ void ExecFunctions::createProject(LangChoice &langChoice)
         switch (langChoice.choiceId)
         {
         case CPP:
-            
+
             folders.push_back("include");
             folders.push_back("obj");
             folders.push_back("src");
@@ -77,7 +75,7 @@ void ExecFunctions::createProject(LangChoice &langChoice)
             {
                 if (!fs::exists(folders[i]))
                 {
-                    std::cout << "Creating folders... ->" << folders[i] << std::endl;
+                    std::cout << "[aefi-generator]:Creating folders... ->" << folders[i] << std::endl;
                     fs::create_directory(folders[i]);
                 }
             }
@@ -104,7 +102,7 @@ void ExecFunctions::createProject(LangChoice &langChoice)
             {
                 if (!fs::exists(folders[i]))
                 {
-                    std::cout << "Creating folders...-> " << folders[i] << std::endl;
+                    std::cout << "[aefi-generator]:Creating folders...-> " << folders[i] << std::endl;
                     fs::create_directory(folders[i]);
                 }
             }
@@ -120,14 +118,68 @@ void ExecFunctions::createProject(LangChoice &langChoice)
 
             break;
         case NODETS:
+            NODE::verifyDependencies();
+            folders.push_back("config");
+            folders.push_back("database");
+            folders.push_back("routes");
+            folders.push_back("controller");
+            folders.push_back("types");
+            files.push_back("index.ts");
+
+            for (int i = 0; i < folders.size(); i++)
+            {
+                if (!fs::exists(folders[i]))
+                {
+                    std::cout << "[aefi-generator]:Creating folders...-> " << folders[i] << std::endl;
+                    fs::create_directory(folders[i]);
+                }
+            }
+
+            for (int i = 0; i < files.size(); i++)
+            {
+                if (!fs::exists(files[i]))
+                {
+                    std::ofstream file(files[i]);
+                    file.close();
+                }
+            }
             break;
         case C:
+            folders.push_back("include");
+            folders.push_back("obj");
+            folders.push_back("src");
+            folders.push_back("obj");
+
+            files.push_back("makefile");
+
+            for (int i = 0; i < folders.size(); i++)
+            {
+                if (!fs::exists(folders[i]))
+                {
+                    std::cout << "[aefi-generator]:Creating folders...:" << folders[i] << std::endl;
+                    fs::create_directory(folders[i]);
+                }
+            }
+
+            for (int i = 0; i < files.size(); i++)
+            {
+                if (!fs::exists(files[i]))
+                {
+                    std::ofstream file(files[i]);
+                    file.close();
+                }
+            }
+
+            break;
+        default:
+            throw std::string("Invalid language option.");
             break;
         }
     }
     catch (std::string &err)
     {
         std::cerr << std::endl
-                  << PNAME_PREFIX_ERR << err;
+                  << PNAME_PREFIX_ERR << err << std::endl;
+        std::exit(-1);
     }
 }

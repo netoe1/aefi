@@ -19,4 +19,9 @@ namespace NODE
     void verifyDependencies();
 }
 
+namespace TSNODE
+{
+    void verifyDependencies();
+}
+
 #endif

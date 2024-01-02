@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
                 function_str == "/help")
             {
                 help();
+                std::exit(SUCCESS);
             }
 
             if (function_str == "--about" ||
@@ -63,47 +64,25 @@ int main(int argc, char *argv[])
                 function_str == "/about")
             {
                 about();
+                std::exit(SUCCESS);
             }
-
-            throw std::string("Invalid syntax, check valid commands (--help)!");
         }
 
         if (argc == 3)
         {
 
-            if (argv[2] == nullptr)
+            if (&argv[2] == NULL)
             {
                 throw std::string("You didn't provide the language for generate project.");
             }
             function_str = argv[1];
 
-            if (function_str == "create")
+            if (function_str == "create" || function_str == "--create" || function_str == "/create")
             {
                 flag_str = argv[2];
                 cliSetEnum_lang(flag_str, userChoice);
 
-                switch (userChoice.choiceId)
-                {
-                case CPP:
-                    cout << endl
-                         << "You choose cpp!" << endl;
-                    break;
-                case C:
-                    cout << endl
-                         << "You choose cpp!" << endl;
-                    break;
-                case NODEJS:
-                    cout << endl
-                         << "You choose nodejs!" << endl;
-                    break;
-                case NODETS:
-                    cout << endl
-                         << "You choose tsnode!" << endl;
-                    break;
-                default:
-                    break;
-                }
-                throw std::string("Probably you set an invalid language supported for generate an skeleton.");
+                ExecFunctions::createProject(userChoice);
             }
         }
 
@@ -112,13 +91,13 @@ int main(int argc, char *argv[])
     catch (string msg)
     {
         cout << PNAME_PREFIX_ERR << msg << endl;
+        std::exit(ERROR);
     }
     return 0;
 }
 
 void help()
 {
-    cout << endl;
     cout << "[aefi-help]: Valid functions:" << endl;
     cout << "--help || -h \t-- Show valid commands to use" << endl;
     cout << "create <lang> \t-- Create an project in the same program's directory" << endl;
@@ -136,7 +115,7 @@ void cliSetEnum_lang(std::string &lang, LangChoice &choice)
     {
         if (lang.empty())
         {
-            throw std::string("You didn't pass an valid parameter in cliSetEnum_lang() function.");
+            throw std::string("The language that you set isn't supported yet or doesn't exist.");
         }
 
         lang = toLowerCase(lang);
@@ -163,19 +142,20 @@ void cliSetEnum_lang(std::string &lang, LangChoice &choice)
         }
         else
         {
+            choice.choiceId = UNDEFINED;
+            choice.language_as_str = "undefined";
             throw std::string("You provide an language that's not supported by cli.");
         }
     }
 
     catch (std::string &msg)
     {
-        cout << endl;
-        cerr << PNAME_PREFIX_INTERNAL << msg;
+        cerr << PNAME_PREFIX_INTERNAL << msg << std::endl;
+        std::exit(ERROR);
     }
 }
 void about()
 {
-    cout << endl;
     cout << "This software was made by Ely Neto (netoe1_)." << endl;
     cout << "Here, our proposal is to make life easier for the programmer, to create new programs.\nAll of this software also has a study proposal for professionals involved in the project, it is a way of evolving intellectually." << endl;
 }
