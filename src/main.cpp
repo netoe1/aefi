@@ -175,4 +175,7 @@ void cliSetEnum_lang(std::string &lang, LangChoice &choice)
 }
 void about()
 {
+    cout << endl;
+    cout << "This software was made by Ely Neto (netoe1_)." << endl;
+    cout << "Here, our proposal is to make life easier for the programmer, to create new programs.\nAll of this software also has a study proposal for professionals involved in the project, it is a way of evolving intellectually." << endl;
 }

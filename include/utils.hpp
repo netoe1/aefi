@@ -2,7 +2,7 @@
 #define UTILS_HPP
 // Including libraries
 #include <string>
-
+#include <cstdlib>
 //  Defining prefixes:
 #define PNAME_PREFIX_ERR "[aefi-err]:"
 #define PNAME_PREFIX_FINE "[aefi-fine]:"
@@ -25,13 +25,22 @@
 
 #define SUCCESS 0
 #define ERROR -1
+#define TERM_FINE 0
+#define TERM_ERR 1
 
+//  Macros
+
+#if __linux__
+#define clearTerm() system("clear")
+#elif _WIN32
+#define clearTerm() system("cls")
+#endif
 // Static classes
 
 class ExecFunctions
 {
 public:
-    static void createProject(const int &type_lang);
+    static void createProject(LangChoice &LangChoice);
 };
 
 std::string toLowerCase(const std::string &str);
